@@ -38,42 +38,29 @@ public class SensorUtils {
 
     // NOTE: see lejos.robotics.Color
     public static int determineColorId(HsvColor color) {
-        int colorId = Color.NONE;
+        int colorId;
 
-        if (SensorUtils.isInRange(color.getValue(), 20f, 170f)) {
+        if (SensorUtils.isInRange(color.getValue(), 10f, 170f)) {
 
-            if (SensorUtils.isInRange(color.getHue(), 0f, 40f)) {
-
-                if (SensorUtils.isInRange(color.getSaturation(), 0.8f, 0.95f)) {
-                    colorId = Color.RED;
+            if (SensorUtils.isInRange(color.getHue(), 0f, 50f)) {
+                colorId = 4;
+            } else if (SensorUtils.isInRange(color.getHue(), 200f, 360f)) {
+                if (SensorUtils.isInRange(color.getSaturation(), 0f, 0.6f)) {
+                    colorId = 2;
                 } else {
-                    colorId = Color.YELLOW;
+                    colorId = 1;
                 }
-
-            } else if (SensorUtils.isInRange(color.getHue(), 40f, 60f)) {
-                if (SensorUtils.isInRange(color.getSaturation(), 0.5f, 0.7f)) {
-                    colorId = Color.YELLOW;
-                } else {
-                    colorId = Color.RED;
-                }
-            } else if (SensorUtils.isInRange(color.getHue(), 60f, 200f)) {
-                if (color.getSaturation() <= 0.6f) {
-                    colorId = Color.GREEN;
-                } else {
-                    colorId = Color.BLUE;
-                }
-            } else if (SensorUtils.isInRange(color.getHue(), 200f, 320f)) {
-                if (color.getSaturation() > 0.65f) {
-                    colorId = Color.BLUE;
-                } else {
-                    colorId = Color.GREEN;
-                }
+            } else {
+                colorId = 2;
             }
-
-        } else if (color.getValue() >= 170f) {
-            colorId = Color.WHITE;
         } else {
-            colorId = Color.BLACK;
+            if (SensorUtils.isInRange(color.getHue(), 290f, 300f)) {
+                colorId = 2;
+            } else if (color.getSaturation() > 0.58f) {
+                colorId = 0;
+            } else {
+                colorId = 0;
+            }
         }
 
         return colorId;
